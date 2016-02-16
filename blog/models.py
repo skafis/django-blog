@@ -8,12 +8,12 @@ class Blog(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
     body = models.TextField()
-    posted = models.DataField(db_index=True, auto_now_add=True)
-    category = models.Foreignkey('blog.category')
+    posted = models.DateTimeField(db_index=True, auto_now_add=True)
+    category = models.ForeignKey('blog.Category')
     
     
     def __unicode__ (self):
-        return '%s' self.title
+        return '%s' % self.title
         
     @permalink
     def get_absolute_url(self):
@@ -23,7 +23,7 @@ class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     slug= models.SlugField(max_length=100, db_index=True)
     
-    def __unicode__(self):
+    def __unicode__ (self):
         return '%s' % self.title
         
     @permalink
